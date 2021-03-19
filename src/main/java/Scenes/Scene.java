@@ -18,14 +18,19 @@ public abstract class Scene {
     }
 
     public static void setCurrentScene(int index){
-        if(currentScene == scenes[index])
+        if(currentScene != scenes[index]) {
+            if(currentScene != null) currentScene.isActive = false;
             currentScene = scenes[index];
+            currentScene.isActive = true;
+            currentScene.init();
+        }
     }
 
     public static Scene getCurrentScene(){ return currentScene; }
 
 
-    private final String name;
+    protected final String name;
+    protected boolean isActive;
 
     public Scene(String name){
         this.name = name;

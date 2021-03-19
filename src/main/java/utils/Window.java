@@ -1,6 +1,7 @@
 package utils;
 
 import Scenes.Scene;
+import Scenes.TestScene;
 import graphics.ArrayBuffer;
 import graphics.IndexBuffer;
 import graphics.Shader;
@@ -107,34 +108,8 @@ public class Window {
 
         GL.createCapabilities();
 
-
-        // Temporary edits
-        float[] vertexArray = {
-                // Position       Color
-                 0.5f, -0.5f,     1.0f, 1.0f, 0.0f, 1.0f,
-                -0.5f,  0.5f,     1.0f, 0.0f, 0.0f, 1.0f,
-                 0.5f,  0.5f,     0.0f, 1.0f, 1.0f, 1.0f,
-                -0.5f, -0.5f,     1.0f, 0.0f, 1.0f, 1.0f
-        };
-
-        int[] elementArray = {
-                2, 1, 0,
-                0, 1, 3
-        };
-
-        VertexBuffer vertexBuffer = new VertexBuffer();
-        vertexBuffer.putData(vertexArray, false);
-
-        IndexBuffer indexBuffer = new IndexBuffer();
-        indexBuffer.putData(elementArray);
-
-        int[] layout = {2, 4};
-
-        arrayBuffer = new ArrayBuffer(vertexBuffer, indexBuffer, layout);
-
-        Shader shader = new Shader("resources/shaders/basic.glsl");
-        shader.Compile();
-        shader.bind();
+        Scene.addScene(new Scene[]{ new TestScene("Hello") });
+        Scene.setCurrentScene(0);
     }
 
     public void loop() {
@@ -156,12 +131,6 @@ public class Window {
             else if(dt >= 0)
                 Scene.getCurrentScene().update(dt);
 
-            arrayBuffer.bind();
-
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-            arrayBuffer.unbind();
-
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
@@ -170,7 +139,7 @@ public class Window {
             endTime = (float)glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
-            System.out.println("FPS = " + ( 1 / dt));
+            // System.out.println("FPS = " + ( 1 / dt));
         }
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);

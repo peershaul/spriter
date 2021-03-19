@@ -21,6 +21,9 @@ public class ArrayBuffer {
             glDisableVertexAttribArray(i);
     }
 
+    public VertexBuffer getVertexBuffer() { return vb; }
+    public IndexBuffer getIndexBuffer() { return ib; }
+
     public void bind(){
         if(!bound){
             glBindVertexArray(id);
