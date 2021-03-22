@@ -1,5 +1,8 @@
 package graphics;
 
+import math.Vector2f;
+import math.Vector4f;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -84,5 +87,13 @@ public class Shader {
             glUseProgram(0);
             bound = false;
         }
+    }
+
+    public void uploadVec2f(String varName, Vector2f vec){
+        int location = glGetUniformLocation(id, varName);
+        boolean wasBound = bound;
+        if (!bound) bind();
+        glUniform2f(location, vec.x, vec.y);
+        if (!wasBound) unbind();
     }
 }

@@ -1,11 +1,10 @@
 package utils;
 
+import Scenes.ChessScene;
 import Scenes.Scene;
 import Scenes.TestScene;
 import graphics.ArrayBuffer;
-import graphics.IndexBuffer;
-import graphics.Shader;
-import graphics.VertexBuffer;
+import math.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -49,10 +48,17 @@ public class Window {
     }
 
     private long window;
-    private final int height, width;
+    public final int height, width;
     private final String name;
+    private Vector4f clearColor;
+    private boolean clearMod = false;
 
     private ArrayBuffer arrayBuffer;
+
+    public void changeClearColor(Vector4f clearColor){
+        if (!clearMod) clearMod = true;
+        this.clearColor = clearColor;
+    }
 
     private void start(){
         // Setup an error callback. The default implementation
@@ -108,8 +114,10 @@ public class Window {
 
         GL.createCapabilities();
 
-        Scene.addScene(new Scene[]{ new TestScene("Hello") });
-        Scene.setCurrentScene(0);
+        Scene.addScene(new Scene[]{ new TestScene("Hello"), new ChessScene()});
+        Scene.setCurrentScene(1);
+
+        if(!clearMod) clearColor = new Vector4f(0, 0, 0, 1);
     }
 
     public void loop() {
@@ -119,7 +127,7 @@ public class Window {
         float dt = -1.0f;
 
         // Set the clear color
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.

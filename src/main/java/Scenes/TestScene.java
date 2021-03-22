@@ -6,6 +6,7 @@ import graphics.Shader;
 import graphics.VertexBuffer;
 import math.Vector2f;
 import math.Vector4f;
+import utils.Window;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -18,10 +19,10 @@ public class TestScene extends Scene{
 
     private float[] vertices = {
             // Position       Color
-             0.5f, -0.5f,     1.0f, 1.0f, 0.0f, 1.0f,
-            -0.5f,  0.5f,     1.0f, 0.0f, 0.0f, 1.0f,
-             0.5f,  0.5f,     0.0f, 1.0f, 1.0f, 1.0f,
-            -0.5f, -0.5f,     1.0f, 0.0f, 1.0f, 1.0f
+             100f, -100f,     1.0f, 1.0f, 0.0f, 1.0f,
+            -100f,  100f,     1.0f, 0.0f, 0.0f, 1.0f,
+             100f,  100f,     0.0f, 1.0f, 1.0f, 1.0f,
+            -100f, -100f,     1.0f, 0.0f, 1.0f, 1.0f
     };
 
     private int[] indices = {
@@ -47,10 +48,7 @@ public class TestScene extends Scene{
         shader = new Shader("resources/shaders/basic.glsl");
         shader.Compile();
 
-        Vector2f vec2 = new Vector2f(40, 78);
-        System.out.println(vec2);
-        Vector4f vec4 = new Vector4f(40, 23, 60);
-        System.out.println(vec4);
+        shader.uploadVec2f("screen", new Vector2f(Window.get().width, Window.get().height));
     }
 
     @Override
