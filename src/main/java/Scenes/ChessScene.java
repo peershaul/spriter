@@ -2,6 +2,7 @@ package Scenes;
 
 import graphics.*;
 import math.Vector2f;
+import math.Vector3f;
 import math.Vector4f;
 import utils.Window;
 
@@ -20,37 +21,42 @@ public class ChessScene extends Scene {
 
     @Override
     public void init() {
-        float[] data = new float[100 * 4 * 4];
-        int[] indices = new int[100 * 6];
-        Vector2f[] colors = new Vector2f[] {
-                new Vector2f(1, 0),
-                new Vector2f(0, 1)
-        };
+        float[] data = new float[8 * 8 * 4 * (2 + 3)];
+        int[] indices = new int[8 * 8 * 6];
         int color = 0;
+        Vector3f[] colors = new Vector3f[]{
+                new Vector3f(255, 207, 159).normalize(),
+                new Vector3f(210, 140,  69).normalize()
+        };
         int index = 0, vertex = 0, i_index = 0;
-        for (int y = 0; y < 10; y++){
-            for (int x = 0; x < 10; x++) {
-                data[index + 0] = (x * 100) - 500;
-                data[index + 1] = (y * 100) - 400;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                data[index + 0] = (x * (float)(1000 / 8.0)) - 500;
+                data[index + 1] = (y * (float)(1000 / 8.0)) - 375;
                 data[index + 2] = colors[color].x;
                 data[index + 3] = colors[color].y;
+                data[index + 4] = colors[color].z;
 
-                data[index + 4] = (x * 100) - 400;
-                data[index + 5] = (y * 100) - 500;
-                data[index + 6] = colors[color].x;
-                data[index + 7] = colors[color].y;
+                data[index + 5] = (x * (float)(1000 / 8.0)) - 375;
+                data[index + 6] = (y * (float)(1000 / 8.0)) - 500;
+                data[index + 7] = colors[color].x;
+                data[index + 8] = colors[color].y;
+                data[index + 9] = colors[color].z;
 
-                data[index + 8] = (x * 100) - 500;
-                data[index + 9] = (y * 100) - 500;
-                data[index + 10] = colors[color].x;
-                data[index + 11] = colors[color].y;
+                data[index + 10] = (x * (float)(1000 / 8.0)) - 500;
+                data[index + 11] = (y * (float)(1000 / 8.0)) - 500;
+                data[index + 12] = colors[color].x;
+                data[index + 13] = colors[color].y;
+                data[index + 14] = colors[color].z;
 
-                data[index + 12] = (x * 100) - 400;
-                data[index + 13] = (y * 100) - 400;
-                data[index + 14] = colors[color].x;
-                data[index + 15] = colors[color].y;
+                data[index + 15] = (x * (float)(1000 / 8.0)) - 375;
+                data[index + 16] = (y * (float)(1000 / 8.0)) - 375;
+                data[index + 17] = colors[color].x;
+                data[index + 18] = colors[color].y;
+                data[index + 19] = colors[color].z;
 
-                index += 16;
+                index += 20;
+                color = (color == 0)? 1 : 0;
 
                 indices[i_index + 0] = vertex + 2;
                 indices[i_index + 1] = vertex + 1;
@@ -62,10 +68,8 @@ public class ChessScene extends Scene {
                 vertex += 4;
                 i_index += 6;
 
-
-                color = (color == 0)? 1 : 0;
-
             }
+            color = (color == 0)? 1 : 0;
         }
 
         /*for(int i = 0; i < data.length; i += 4)
@@ -80,13 +84,13 @@ public class ChessScene extends Scene {
         IndexBuffer ib = new IndexBuffer();
         ib.putData(indices);
 
-        vao = new ArrayBuffer(vb, ib, new int[]{2, 2});
+        vao = new ArrayBuffer(vb, ib, new int[]{2, 3});
         shader = new Shader("resources/shaders/board.glsl");
         shader.Compile();
 
         shader.uploadVec2f("screen", new Vector2f(Window.get().width, Window.get().height));
 
-        Window.get().changeClearColor(new Vector4f(1, 1,1,1));
+        Window.get().changeClearColor(new Vector4f(0));
     }
 
 
@@ -95,11 +99,10 @@ public class ChessScene extends Scene {
         shader.bind();
         vao.bind();
 
-
         glDrawElements(GL_TRIANGLES, vao.getIndexBuffer().getAmount(), GL_UNSIGNED_INT, NULL);
 
         int err = glGetError();
-        while(err != 0 || err != GL_FALSE) {
+        while(err != GL_FALSE) {
             System.out.println("OPENGL ERROR ( " + err + " )");
             err = glGetError();
         }

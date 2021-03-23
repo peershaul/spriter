@@ -5,7 +5,6 @@ import graphics.IndexBuffer;
 import graphics.Shader;
 import graphics.VertexBuffer;
 import math.Vector2f;
-import math.Vector4f;
 import utils.Window;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -19,10 +18,10 @@ public class TestScene extends Scene{
 
     private float[] vertices = {
             // Position       Color
-             100f, -100f,     1.0f, 1.0f, 0.0f, 1.0f,
-            -100f,  100f,     1.0f, 0.0f, 0.0f, 1.0f,
-             100f,  100f,     0.0f, 1.0f, 1.0f, 1.0f,
-            -100f, -100f,     1.0f, 0.0f, 1.0f, 1.0f
+             200f, -200f,     1.0f, 1.0f, 0.0f, 1.0f,
+            -200f,  200f,     1.0f, 0.0f, 0.0f, 1.0f,
+             200f,  200f,     0.0f, 1.0f, 1.0f, 1.0f,
+            -200f, -200f,     1.0f, 0.0f, 1.0f, 1.0f
     };
 
     private int[] indices = {

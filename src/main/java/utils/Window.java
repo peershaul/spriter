@@ -79,11 +79,10 @@ public class Window {
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
-        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-                glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-        });
+        glfwSetCursorPosCallback(window, MouseListener::mousePosCallback);
+        glfwSetMouseButtonCallback(window, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(window, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(window, KeyListener::KeyCallback);
 
         // Get the thread stack and push a new frame
         try ( MemoryStack stack = stackPush() ) {
@@ -138,6 +137,9 @@ public class Window {
                 System.out.println("Current scene is null!");
             else if(dt >= 0)
                 Scene.getCurrentScene().update(dt);
+
+            if(KeyListener.isKeyPressed(GLFW_KEY_ESCAPE))
+                glfwSetWindowShouldClose(window, true);
 
             glfwSwapBuffers(window); // swap the color buffers
 

@@ -15,4 +15,9 @@ public class Vector2f {
     public Vector2f(float x, float y) { set(x, y); }
 
     public String toString(){ return "( " + x + ",\t" + y + " )"; }
+
+    @Override
+    public Vector2f clone() { return new Vector2f(this.x, this.y); }
+
+    public Vector2f sub(Vector2f vec){ return new Vector2f(this.x - vec.x, this.y - vec.y); }
 }
