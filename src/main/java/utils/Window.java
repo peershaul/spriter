@@ -2,8 +2,9 @@ package utils;
 
 import Scenes.ChessScene;
 import Scenes.Scene;
-import Scenes.TestScene;
+import Test.TestScene;
 import graphics.ArrayBuffer;
+import math.Vector2f;
 import math.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -40,6 +41,8 @@ public class Window {
 
         return instance;
     }
+
+    public static Vector2f getScreen(){ return new Vector2f(get().width, get().height); }
 
     private Window(int width, int height, String name){
         this.height = height;
@@ -113,8 +116,8 @@ public class Window {
 
         GL.createCapabilities();
 
-        Scene.addScene(new Scene[]{ new TestScene("Hello"), new ChessScene()});
-        Scene.setCurrentScene(1);
+        Scene.addScene(new Scene[]{ new TestScene(), new ChessScene()});
+        Scene.setCurrentScene(0);
 
         if(!clearMod) clearColor = new Vector4f(0, 0, 0, 1);
     }

@@ -10,8 +10,8 @@ graphics/ArrayBuffer.java
  graphics.ArrayBuffer
 math/Vector4f.java
  math.Vector4f
-Scenes/Scene.java
- Scenes.Scene
+components/Transform.java
+ components.Transform
 graphics/VertexBuffer.java
  graphics.VertexBuffer
 utils/MouseListener.java
@@ -22,19 +22,29 @@ graphics/Shader.java
  graphics.Shader
 math/Vector2f.java
  math.Vector2f
+utils/AssetPool.java
+ utils.AssetPool
+utils/Window.java
+ utils.Window
 utils/Units.java
  utils.Units
 Main.java
  Main
-Scenes/TestScene.java
- Scenes.TestScene
-utils/Window.java
- utils.Window
-Scenes/ChessScene.java
- Scenes.ChessScene
-components/Transform.java
- components.Transform
+Scenes/Scene.java
+ Scenes.Scene
 components/GameObject.java
  components.GameObject
+graphics/Renderer.java
+ graphics.Renderer
 components/Component.java
  components.Component
+Scenes/ChessScene.java
+ Scenes.ChessScene
+example_chess/ChessBoard.java
+ example_chess.ChessBoard
+components/ObjectRenderer.java
+ components.ObjectRenderer
+Test/TestGameObject.java
+ Test.TestGameObject
+Test/TestScene.java
+ Test.TestScene

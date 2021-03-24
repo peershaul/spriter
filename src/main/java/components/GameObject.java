@@ -1,12 +1,15 @@
 package components;
 
+import Scenes.Scene;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameObject {
-    private final String name;
+    protected final String name;
     public Transform transform;
-    private List<Component> components;
+    public Scene scene;
+    protected List<Component> components;
 
     public GameObject(String name){
         this.name = name;
@@ -49,12 +52,19 @@ public class GameObject {
         c.gameObject = this;
     }
 
+    public String getName(){ return name; }
+    public String toString(){ return "GameObject: " + name + "\nPosition: " + transform.position + "\nScale: " + transform.scale;}
+
     public void update(float dt){
         for (Component component : components) component.update(dt);
     }
 
     public void start(){
         for (Component component : components) component.start();
+    }
+
+    public void init(){
+
     }
 
 }

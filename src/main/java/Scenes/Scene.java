@@ -1,5 +1,11 @@
 package Scenes;
 
+import components.GameObject;
+import graphics.Renderer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Scene {
     private static Scene[] scenes = {};
     private static Scene currentScene = null;
@@ -23,17 +29,69 @@ public abstract class Scene {
             currentScene = scenes[index];
             currentScene.isActive = true;
             currentScene.init();
+            currentScene.start();
         }
+    }
+
+    public static void setCurrentScene(Scene scene){
+        if(currentScene != scene){
+            if(currentScene != null) currentScene.isActive = false;
+            currentScene = scene;
+            currentScene.isActive = true;
+            currentScene.init();
+            currentScene.start();
+        }
+    }
+
+    public static Scene getSceneByName(String name){
+        for(Scene scene : scenes) {
+            if (scene.name.equals(name))
+                return scene;
+        }
+        return null;
     }
 
     public static Scene getCurrentScene(){ return currentScene; }
 
-
     protected final String name;
     protected boolean isActive;
+    protected List<GameObject> gameObjects = new ArrayList<>();
+    protected List<Renderer> renderers = new ArrayList<>();
 
     public Scene(String name){
         this.name = name;
+    }
+
+    public void start(){
+        for (GameObject go : gameObjects) {
+            go.init();
+            go.start();
+        }
+        isActive = true;
+        awake();
+    }
+
+    public void awake(){
+
+    }
+
+    public void addGameObjectToScene(GameObject go){
+        if(isActive){
+            gameObjects.add(go);
+            go.scene = this;
+            go.init();
+            go.start();
+        }
+        else {
+            gameObjects.add(go);
+            go.scene = this;
+        }
+    }
+
+    public void addRendererToScene(Renderer renderer){
+        for(Renderer rend : renderers) if(rend.equals(renderer)) return;
+
+        renderers.add(renderer);
     }
 
     public void init(){
