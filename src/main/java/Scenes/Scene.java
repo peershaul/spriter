@@ -25,7 +25,10 @@ public abstract class Scene {
 
     public static void setCurrentScene(int index){
         if(currentScene != scenes[index]) {
-            if(currentScene != null) currentScene.isActive = false;
+            if(currentScene != null) {
+                currentScene.reset();
+                currentScene.isActive = false;
+            }
             currentScene = scenes[index];
             currentScene.isActive = true;
             currentScene.init();
@@ -35,7 +38,10 @@ public abstract class Scene {
 
     public static void setCurrentScene(Scene scene){
         if(currentScene != scene){
-            if(currentScene != null) currentScene.isActive = false;
+            if(currentScene != null) {
+                currentScene.reset();
+                currentScene.isActive = false;
+            }
             currentScene = scene;
             currentScene.isActive = true;
             currentScene.init();
@@ -60,6 +66,7 @@ public abstract class Scene {
 
     public Scene(String name){
         this.name = name;
+        reset();
     }
 
     public void start(){
@@ -69,6 +76,10 @@ public abstract class Scene {
         }
         isActive = true;
         awake();
+    }
+
+    public void reset() {
+
     }
 
     public void awake(){

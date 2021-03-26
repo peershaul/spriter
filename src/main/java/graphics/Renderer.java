@@ -36,6 +36,7 @@ public class Renderer {
     private void updateBuffer(){
         int dataCount = 0, indexCount = 0;
         for(ObjectRenderer obr : objectRenderers){
+            obr.calc();
             dataCount += obr.vertexData.length;
             indexCount += obr.indexData.length;
         }
@@ -76,6 +77,9 @@ public class Renderer {
     public Shader getShader() { return shader; }
 
     public void draw(){
+
+        updateBuffer();
+
         shader.bind();
         arrayBuffer.bind();
 

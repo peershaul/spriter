@@ -1,41 +1,38 @@
-package Test;
-
+package example_chess;
 
 import Scenes.Scene;
 import components.GameObject;
 import components.ObjectRenderer;
-import example_chess.ChessBoard;
 import graphics.Renderer;
-import graphics.Shader;
 import math.Vector4f;
 import utils.AssetPool;
 import utils.Window;
 
 import java.util.ArrayList;
 
-public class TestScene extends Scene {
+public class ChessScene extends Scene {
 
-    public TestScene(){
-        super("TestScene");
+    public ChessScene() {
+        super("Chess");
     }
 
     private Renderer renderer;
 
     @Override
     public void init(){
-        Shader shader = AssetPool.getShader("resources/shaders/board.glsl");
-
-        shader.uploadVec2f("screen", Window.getScreen());
-        renderer = new Renderer(shader, new int[]{ 2, 3 });
+        renderer = new Renderer(
+                AssetPool.getShader("resources/shaders/board.glsl"),
+                new int[]{ 2, 3 }
+        );
 
         addRendererToScene(renderer);
+
+        renderer.getShader().uploadVec2f("screen", Window.getScreen());
+
         ChessBoard board = new ChessBoard();
         addGameObjectToScene(board);
 
-        TestGameObject test = new TestGameObject();
-        addGameObjectToScene(test);
-
-        Window.get().changeClearColor(new Vector4f());
+        // Window.get().changeClearColor(new Vector4f(1, 1, 1, 1));
     }
 
     @Override
@@ -44,15 +41,15 @@ public class TestScene extends Scene {
     }
 
     @Override
-    public void update(float dt) {
-        for(GameObject go : gameObjects) go.update(dt);
-        for(Renderer renderer : renderers) renderer.draw();
-    }
-
-    @Override
     public void reset(){
         renderer = null;
         gameObjects = new ArrayList<>();
         renderers = new ArrayList<>();
+    }
+
+    @Override
+    public void update(float dt) {
+        for(GameObject go : gameObjects) go.update(dt);
+        for(Renderer rend : renderers) rend.draw();
     }
 }

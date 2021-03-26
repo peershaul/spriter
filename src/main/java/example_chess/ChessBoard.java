@@ -6,10 +6,6 @@ import components.Transform;
 
 import math.Vector2f;
 import math.Vector3f;
-import math.Vector4f;
-import utils.AssetPool;
-import utils.Window;
-
 
 public class ChessBoard extends GameObject {
 

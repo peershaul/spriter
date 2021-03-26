@@ -19,5 +19,10 @@ public class Vector3f {
     public Vector3f(float m) { set(m); }
     public Vector3f() { set(0); }
 
+    public String toString(){ return "( " + x + ",\t" + y + ",\t" + z + ") "; }
+
     public Vector3f normalize(){ return new Vector3f(this.x / 255, this.y / 255, this.z / 255); }
+
+    public Vector3f add(Vector3f vec){ return new Vector3f(this.x + vec.x, this.y + vec.y + this.z + vec.z); }
+    public Vector3f mul(float mul){ return new Vector3f(this.x * mul, this.y * mul, this.z * mul); }
 }

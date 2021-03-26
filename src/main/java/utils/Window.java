@@ -1,8 +1,6 @@
 package utils;
 
-import Scenes.ChessScene;
 import Scenes.Scene;
-import Test.TestScene;
 import graphics.ArrayBuffer;
 import math.Vector2f;
 import math.Vector4f;
@@ -34,11 +32,7 @@ public class Window {
     }
 
     public static Window get(){
-        if(instance == null){
-            assert false : "The window hasn't started yet";
-            return null;
-        }
-
+        assert instance != null : "The window hasn't started yet";
         return instance;
     }
 
@@ -116,15 +110,12 @@ public class Window {
 
         GL.createCapabilities();
 
-        Scene.addScene(new Scene[]{ new TestScene(), new ChessScene()});
-        Scene.setCurrentScene(0);
-
         if(!clearMod) clearColor = new Vector4f(0, 0, 0, 1);
     }
 
     public void loop() {
 
-        float beginTime = (float)glfwGetTime();
+        float beginTime = (float) glfwGetTime();
         float endTime;
         float dt = -1.0f;
 
@@ -144,12 +135,20 @@ public class Window {
             if(KeyListener.isKeyPressed(GLFW_KEY_ESCAPE))
                 glfwSetWindowShouldClose(window, true);
 
+
+            for (int i = 0; i < Math.min(Scene.getScenes().length, 9); i++)
+                if (KeyListener.isKeyPressed(GLFW_KEY_1 + i)){
+                    Scene.setCurrentScene(i);
+                    break;
+                }
+
+
             glfwSwapBuffers(window); // swap the color buffers
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
-            endTime = (float)glfwGetTime();
+            endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
             // System.out.println("FPS = " + ( 1 / dt));
