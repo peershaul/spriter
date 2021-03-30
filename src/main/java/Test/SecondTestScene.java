@@ -2,14 +2,12 @@ package Test;
 
 import Scenes.Scene;
 import components.GameObject;
-import components.ObjectRenderer;
+import components.Sprite;
 import components.Transform;
-import components.shapes.Circle;
-import graphics.Renderer;
+import components.shapes.Rectangle;
+import components.shapes.Shape;
 import graphics.Shader;
 import org.joml.Vector2f;
-import utils.AssetPool;
-import utils.Window;
 
 public class SecondTestScene extends Scene {
 
@@ -17,32 +15,22 @@ public class SecondTestScene extends Scene {
         super("second test scene");
     }
 
-    private Shader shader;
-    private GameObject circObject;
+    public Shape shape;
+    public GameObject go;
 
-    @Override
     public void init(){
-        shader = AssetPool.getShader("resources/shaders/basic.glsl");
-        addRendererToScene(new Renderer(shader, new int[]{2, 3}));
 
-        shader.uploadVec2f("screen", Window.getScreen());
-    }
+        Shader.LayoutElement[] layout = new Shader.LayoutElement[]{
+                new Shader.LayoutElement(Shader.LayoutElementType.POSITION, 2),
+        };
 
-    @Override
-    public void awake(){
-        circObject = new GameObject(
-                "circular game object",
-                new Transform(new Vector2f(), new Vector2f(5))
-        );
+        go = new GameObject("test",
+                new Transform(
+                        new Vector2f(50, 25),
+                        new Vector2f(50, 100)
+                ));
 
-        Circle circComp = new Circle(200, 5);
-        circObject.addComponent(circComp);
-
-        addGameObjectToScene(circObject);
-
-        renderers.get(0).addObjectRenderer(circObject.getComponent(ObjectRenderer.class));
-
-        shader.uploadVec3f("Color", circComp.color);
+        go.addComponent(new Sprite(new Rectangle(), ));
     }
 
     @Override

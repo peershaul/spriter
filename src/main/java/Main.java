@@ -1,8 +1,7 @@
 import Test.SecondTestScene;
-import example_chess.ChessScene;
+
 import Scenes.Scene;
-import Test.TestScene;
-import example_platformer.PlatformerScene;
+
 import utils.Window;
 
 public class Main{
@@ -10,9 +9,6 @@ public class Main{
         Window win = Window.start(1280, 720, "Chess game");
 
         Scene.addScene(new Scene[]{
-                new ChessScene(),
-                new PlatformerScene(),
-                new TestScene(),
                 new SecondTestScene()
         });
         Scene.setCurrentScene(3);

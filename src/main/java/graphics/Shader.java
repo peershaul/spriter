@@ -18,6 +18,8 @@ public class Shader {
     private String[] srcs;
     private String filepath;
     private boolean bound = false;
+    private boolean layoutSet = false;
+    private LayoutElement[] layout;
 
     public Shader(String filepath){
         this.filepath = filepath;
@@ -39,6 +41,13 @@ public class Shader {
             e.printStackTrace();
         }
     }
+
+    public void setLayout(LayoutElement[] layout) {
+        if(layoutSet) System.out.println("shader layout already set '" + filepath + "'");
+        else {this.layout = layout; layoutSet = true; }
+    }
+
+    public LayoutElement[] getLayout() { return layout; }
 
     public void Compile(){
         int[] shaders = compileShaders();
@@ -121,5 +130,18 @@ public class Shader {
         mat.get(matBuffer);
         glUniformMatrix4fv(location, false, matBuffer);
         unbind();
+    }
+
+
+    public enum LayoutElementType { POSITION, COLOR, TEX_COORDS };
+
+    public static class LayoutElement{
+        public final int length;
+        public final LayoutElementType type;
+
+        public LayoutElement(LayoutElementType type, int length){
+            this.length = length;
+            this.type = type;
+        }
     }
 }
