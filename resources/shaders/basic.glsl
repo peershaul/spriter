@@ -1,26 +1,22 @@
 #type vertex
 #version 330 core
 
-layout(location = 0) in vec4 pos;
-layout(location = 1) in vec4 v_color;
+layout (location = 0) in vec2 position;
 
 uniform vec2 screen;
 
-out vec4 f_color;
-
 void main(){
-    vec4 position = vec4(pos.x / screen.x, pos.y / screen.y, pos.zw);
-    gl_Position = position;
-    f_color = v_color;
+    gl_Position = vec4(position / screen, 0, 1);
 }
+
 
 #type fragment
 #version 330 core
 
-in vec4 f_color;
+uniform vec3 Color;
 
 out vec4 color;
 
 void main(){
-    color = f_color;
+    color = vec4(Color, 1);
 }

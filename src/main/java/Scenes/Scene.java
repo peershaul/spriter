@@ -4,32 +4,25 @@ import components.GameObject;
 import graphics.Renderer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Scene {
-    private static Scene[] scenes = {};
+    private static List<Scene> scenes = new ArrayList<>();
     private static Scene currentScene = null;
 
-    public static Scene[] getScenes() { return scenes; }
+    public static List<Scene> getScenes() { return scenes; }
     public static void addScene(Scene[] new_scenes){
-        Scene[] arr = new Scene[scenes.length + new_scenes.length];
-
-        for(int i = 0; i < scenes.length; i++)
-            arr[i] = scenes[i];
-
-        for(int i = scenes.length; i < scenes.length + new_scenes.length; i++)
-            arr[i] = new_scenes[i];
-
-        scenes = arr;
+        Collections.addAll(scenes, new_scenes);
     }
 
     public static void setCurrentScene(int index){
-        if(currentScene != scenes[index]) {
+        if(currentScene != scenes.get(index)) {
             if(currentScene != null) {
                 currentScene.reset();
                 currentScene.isActive = false;
             }
-            currentScene = scenes[index];
+            currentScene = scenes.get(index);
             currentScene.isActive = true;
             currentScene.init();
             currentScene.start();
@@ -109,5 +102,12 @@ public abstract class Scene {
 
     }
 
-    public abstract void update(float dt);
+    public void update(float dt){
+        SceneUpdate(dt);
+        for(GameObject go : gameObjects) go.update(dt);
+        for(Renderer rend : renderers) rend.draw();
+
+    }
+
+    public abstract void SceneUpdate(float dt);
 }

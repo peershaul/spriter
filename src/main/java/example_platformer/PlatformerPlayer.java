@@ -1,17 +1,18 @@
 package example_platformer;
 
+import Scenes.Scene;
 import components.GameObject;
-import components.Rectangle;
+import components.shapes.Rectangle;
 import components.Transform;
-import math.Vector2f;
-import math.Vector3f;
-import org.lwjgl.system.CallbackI;
+
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 import utils.KeyListener;
 import utils.Window;
 
-import java.security.Key;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
+import static utils.Color.normalize;
 
 public class PlatformerPlayer extends GameObject {
     public PlatformerPlayer() {
@@ -19,19 +20,27 @@ public class PlatformerPlayer extends GameObject {
     }
 
     private boolean jumping = false;
-    private Vector2f velocity = new Vector2f(50, 0),
-                        acceleration = new Vector2f(0, -30);
+    private Vector2f velocity = new Vector2f(50, 0);
+    private final Vector2f acceleration = new Vector2f(0, -1333);
+    public Scene parent;
+
+    private float groundHeight;
+    private final float jumpingVelocity = 666;
+    private float time = 0;
 
     @Override
     public void init(){
         Rectangle rect = new Rectangle();
         Vector2f screen = Window.getScreen();
+
+        groundHeight = 0.1f * screen.y + 50;
+
         transform = new Transform(
-                new Vector2f(100, 0.1f * screen.y + 50),
+                new Vector2f(100, groundHeight),
                 new Vector2f(100)
         );
 
-        rect.changeColor(new Vector3f(204, 0, 0).normalize());
+        rect.changeColor(normalize(new Vector3f(204, 0, 0)));
         rect.calc();
 
         addComponent(rect);
@@ -40,22 +49,25 @@ public class PlatformerPlayer extends GameObject {
     @Override
     public void update(float dt){
 
-        Vector2f screen = Window.getScreen();
-
         transform.position.x += velocity.x * dt;
 
-        if (transform.position.y + velocity.y * dt <= 0.1f * screen.y + 50){
-            transform.position.y = 0.1f * screen.y + 50;
+        if (transform.position.y + velocity.y * dt <= groundHeight && jumping){
+            transform.position.y = groundHeight;
             velocity.y = 0;
             jumping = false;
+            System.out.println(time);
+            time = 0;
         }
         else transform.position.y += velocity.y * dt;
 
-        if(jumping) velocity.y += acceleration.y * dt;
+        if(jumping){
+            velocity.y += acceleration.y * dt;
+            time += dt;
+        }
 
         if(!jumping && KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
             jumping = true;
-            velocity.y = 75;
+            velocity.y = jumpingVelocity;
         }
 
     }

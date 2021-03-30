@@ -1,3 +1,4 @@
+import Test.SecondTestScene;
 import example_chess.ChessScene;
 import Scenes.Scene;
 import Test.TestScene;
@@ -8,8 +9,13 @@ public class Main{
     public static void main(String[] args){
         Window win = Window.start(1280, 720, "Chess game");
 
-        Scene.addScene(new Scene[]{ new ChessScene(), new PlatformerScene() });
-        Scene.setCurrentScene(1);
+        Scene.addScene(new Scene[]{
+                new ChessScene(),
+                new PlatformerScene(),
+                new TestScene(),
+                new SecondTestScene()
+        });
+        Scene.setCurrentScene(3);
 
         win.loop();
     }

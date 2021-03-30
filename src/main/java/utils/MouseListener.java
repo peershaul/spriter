@@ -1,7 +1,6 @@
 package utils;
 
-import math.Vector2f;
-import math.Vector3f;
+import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
@@ -26,7 +25,7 @@ public class MouseListener {
     }
 
     public static void mousePosCallback(long window, double xpos, double ypos){
-        get().last_pos = get().pos.clone();
+        get().last_pos = new Vector2f(get().pos.x, get().pos.y);
         get().pos = new Vector2f((float) xpos, (float) ypos);
         boolean dragging = false;
         for(int i = 0; i < get().mouseButtons.length; i++)
@@ -54,7 +53,7 @@ public class MouseListener {
 
     public static void endFrame(){
         get().scroll = new Vector2f();
-        get().last_pos = get().pos.clone();
+        get().last_pos = new Vector2f(get().pos.x, get().pos.y);
     }
 
     public static Vector2f getPos(){ return get().pos; }

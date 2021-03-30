@@ -3,13 +3,15 @@ package example_platformer;
 import Scenes.Scene;
 import components.GameObject;
 import components.ObjectRenderer;
-import components.Rectangle;
+import components.shapes.Rectangle;
 import components.Transform;
 import graphics.Renderer;
-import math.Vector2f;
-import math.Vector3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 import utils.AssetPool;
 import utils.Window;
+
+import static utils.Color.normalize;
 
 public class PlatformerScene extends Scene {
     public PlatformerScene() {
@@ -27,6 +29,7 @@ public class PlatformerScene extends Scene {
                 ));
 
         PlatformerPlayer player = new PlatformerPlayer();
+        player.parent = this;
         addGameObjectToScene(player);
 
         renderers.get(1).addObjectRenderer(player.getComponent(ObjectRenderer.class));
@@ -46,7 +49,7 @@ public class PlatformerScene extends Scene {
                 ));
 
         Rectangle skyObr = new Rectangle();
-        skyObr.changeColor(new Vector3f(51, 204, 255).normalize());
+        skyObr.changeColor(normalize(new Vector3f(51, 204, 255)));
         sky.addComponent(skyObr);
 
         addGameObjectToScene(sky);
@@ -60,7 +63,7 @@ public class PlatformerScene extends Scene {
                 ));
 
         Rectangle groundObr = new Rectangle();
-        groundObr.changeColor(new Vector3f(0, 153, 51).normalize());
+        groundObr.changeColor(normalize(new Vector3f(0, 153, 51)));
         ground.addComponent(groundObr);
 
         groundObr.calc();
@@ -80,5 +83,10 @@ public class PlatformerScene extends Scene {
     public void update(float dt) {
         for(GameObject go : gameObjects) go.update(dt);
         for(Renderer rend : renderers) rend.draw();
+    }
+
+    @Override
+    public void SceneUpdate(float dt) {
+
     }
 }

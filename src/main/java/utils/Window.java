@@ -2,8 +2,8 @@ package utils;
 
 import Scenes.Scene;
 import graphics.ArrayBuffer;
-import math.Vector2f;
-import math.Vector4f;
+import org.joml.Vector2f;
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -132,11 +132,12 @@ public class Window {
             else if(dt >= 0)
                 Scene.getCurrentScene().update(dt);
 
+
             if(KeyListener.isKeyPressed(GLFW_KEY_ESCAPE))
                 glfwSetWindowShouldClose(window, true);
 
 
-            for (int i = 0; i < Math.min(Scene.getScenes().length, 9); i++)
+            for (int i = 0; i < Math.min(Scene.getScenes().size(), 9); i++)
                 if (KeyListener.isKeyPressed(GLFW_KEY_1 + i)){
                     Scene.setCurrentScene(i);
                     break;

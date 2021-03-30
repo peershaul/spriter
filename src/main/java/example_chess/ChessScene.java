@@ -4,7 +4,6 @@ import Scenes.Scene;
 import components.GameObject;
 import components.ObjectRenderer;
 import graphics.Renderer;
-import math.Vector4f;
 import utils.AssetPool;
 import utils.Window;
 
@@ -51,5 +50,10 @@ public class ChessScene extends Scene {
     public void update(float dt) {
         for(GameObject go : gameObjects) go.update(dt);
         for(Renderer rend : renderers) rend.draw();
+    }
+
+    @Override
+    public void SceneUpdate(float dt) {
+
     }
 }

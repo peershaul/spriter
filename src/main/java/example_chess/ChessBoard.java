@@ -4,8 +4,11 @@ import components.GameObject;
 import components.ObjectRenderer;
 import components.Transform;
 
-import math.Vector2f;
-import math.Vector3f;
+
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+import static utils.Color.normalize;
 
 public class ChessBoard extends GameObject {
 
@@ -33,8 +36,8 @@ public class ChessBoard extends GameObject {
 
     private float[] calcVertexData(){
         Vector3f[] colors = new Vector3f[]{
-                new Vector3f(210, 140,  69).normalize(),
-                new Vector3f(255, 207, 159).normalize()
+                normalize( new Vector3f(210, 140,  69)),
+                normalize(new Vector3f(255, 207, 159))
         };
         int color = 0;
         float[] data = new float[8 * 8 * 4 * (2 + 3)];

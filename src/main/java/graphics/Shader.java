@@ -1,10 +1,14 @@
 package graphics;
 
-import math.Vector2f;
-import math.Vector4f;
+
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.FloatBuffer;
 import java.util.Scanner;
 
 import static org.lwjgl.opengl.GL20.*;
@@ -91,9 +95,31 @@ public class Shader {
 
     public void uploadVec2f(String varName, Vector2f vec){
         int location = glGetUniformLocation(id, varName);
-        boolean wasBound = bound;
-        if (!bound) bind();
+        bind();
         glUniform2f(location, vec.x, vec.y);
-        if (!wasBound) unbind();
+        unbind();
+    }
+
+    public void uploadVec3f(String name, Vector3f vec){
+        int location = glGetUniformLocation(id, name);
+        bind();
+        glUniform3f(location, vec.x, vec.y, vec.z);
+        unbind();
+    }
+
+    public void uploadTexture(String name, int slot){
+        int location = glGetUniformLocation(id, name);
+        bind();
+        glUniform1i(location, slot);
+        unbind();
+    }
+
+    public void uploadMat4f(String name, Matrix4f mat){
+        int location = glGetUniformLocation(id, name);
+        bind();
+        FloatBuffer matBuffer = BufferUtils.createFloatBuffer(4 * 4);
+        mat.get(matBuffer);
+        glUniformMatrix4fv(location, false, matBuffer);
+        unbind();
     }
 }

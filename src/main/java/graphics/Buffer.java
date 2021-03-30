@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 public abstract class Buffer<T> {
     protected int id, type;
     protected T[] data;
-    protected boolean bound = false;
 
     public abstract void putData(T[] data, boolean dynamic);
 
@@ -18,16 +17,10 @@ public abstract class Buffer<T> {
     }
 
     public void bind(){
-        if(!bound){
-            glBindBuffer(type, id);
-            bound = true;
-        }
+        glBindBuffer(type, id);
     }
 
     public void unbind(){
-        if(bound){
-            glBindBuffer(type, 0);
-            bound = false;
-        }
+        glBindBuffer(type, 0);
     }
 }

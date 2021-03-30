@@ -1,6 +1,6 @@
 package components;
 
-import math.Vector2f;
+import org.joml.Vector2f;
 
 public class Transform {
     public Vector2f position, scale;

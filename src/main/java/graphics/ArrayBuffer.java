@@ -9,7 +9,6 @@ public class ArrayBuffer {
     private IndexBuffer ib;
     private VertexBuffer vb;
     private int[] layout;
-    private boolean bound = false;
 
     public void bindLayout(){
         for(int i = 0; i < layout.length; i++)
@@ -25,23 +24,17 @@ public class ArrayBuffer {
     public IndexBuffer getIndexBuffer() { return ib; }
 
     public void bind(){
-        if(!bound){
-            glBindVertexArray(id);
-            vb.bind();
-            ib.bind();
-            bindLayout();
-            bound = true;
-        }
+        glBindVertexArray(id);
+        vb.bind();
+        ib.bind();
+        bindLayout();
     }
 
     public void unbind(){
-        if(bound){
-            vb.unbind();
-            ib.bind();
-            unbindLayout();
-            glBindVertexArray(0);
-            bound = false;
-        }
+        vb.unbind();
+        ib.bind();
+        unbindLayout();
+        glBindVertexArray(0);
     }
 
     public ArrayBuffer(VertexBuffer vb, IndexBuffer ib, int[] layout){

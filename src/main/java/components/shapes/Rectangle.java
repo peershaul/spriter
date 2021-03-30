@@ -1,9 +1,12 @@
-package components;
+package components.shapes;
 
-import math.Vector2f;
-import math.Vector3f;
 
-public class Rectangle extends ObjectRenderer{
+import components.ObjectRenderer;
+import components.Transform;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+public class Rectangle extends ObjectRenderer {
 
     public Vector3f color;
 
