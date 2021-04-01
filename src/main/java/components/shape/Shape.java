@@ -4,10 +4,10 @@ import components.Transform;
 import org.joml.Vector2f;
 
 public abstract class Shape {
-    protected Vector2f[] positions, texCoords;
+    public Vector2f[] positions, texCoords;
     protected int[] indices;
     protected Transform transform;
-    protected int vertexCount;
+    public int vertexCount;
 
     public Shape(Transform transform){
         this.transform = transform;

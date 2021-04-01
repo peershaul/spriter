@@ -22,6 +22,32 @@ public class VertexBuffer extends Buffer<Float>{
         unbind();
     }
 
+    @Override
+    public void updateData(Float[] data) {
+        this.data = data;
+
+        float[] raw = new float[data.length];
+        for(int i = 0; i < data.length; i++)
+            raw[i] = data[i];
+
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
+        buffer.put(raw).flip();
+
+        bind();
+        glBufferSubData(type, 0, buffer);
+        unbind();
+
+        started = true;
+    }
+
+    public void updateData(float[] data){
+        Float[] cli = new Float[data.length];
+        for(int i = 0; i < cli.length; i++)
+            cli[i] = data[i];
+
+        updateData(cli);
+    }
+
     public void putData(float[] data, boolean dynamic){
         Float[] cli = new Float[data.length];
         for(int i = 0; i < cli.length; i++)

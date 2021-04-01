@@ -1,6 +1,7 @@
 package Scenes;
 
 import components.GameObject;
+import graphics.Renderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,7 +61,7 @@ public abstract class Scene {
     protected final String name;
     protected boolean isActive;
     protected List<GameObject> gameObjects = new ArrayList<>();
-    // protected List<Renderer> renderers = new ArrayList<>();
+    protected List<Renderer> renderers = new ArrayList<>();
 
     public Scene(String name){
         this.name = name;
@@ -97,11 +98,11 @@ public abstract class Scene {
         }
     }
 
-  /*  public void addRendererToScene(Renderer renderer){
-        // for(Renderer rend : renderers) if(rend.equals(renderer)) return;
+  public void addRendererToScene(Renderer renderer){
+        for(Renderer rend : renderers) if(rend.equals(renderer)) return;
 
         renderers.add(renderer);
-    }*/
+    }
 
     public void init(){
 
@@ -110,7 +111,7 @@ public abstract class Scene {
     public void update(float dt){
         SceneUpdate(dt);
         for(GameObject go : gameObjects) go.update(dt);
-        // for(Renderer rend : renderers) rend.draw();
+        for(Renderer rend : renderers) rend.draw();
 
     }
 
