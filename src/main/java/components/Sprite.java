@@ -1,69 +1,76 @@
 package components;
 
-import components.shapes.Shape;
-import graphics.Shader;
+
+import components.shape.Shape;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-import java.lang.annotation.ElementType;
-import java.lang.module.ModuleDescriptor;
-
-
 public class Sprite extends Component{
-    private float[] vertexData;
-    private int[] indexData;
-    public Shape shape;
-    public final Shader.LayoutElement[] layout;
 
+    protected float[] vertexData;
+    protected int[] indexData;
+    public Shape shape;
+    public boolean textured = false;
     public Vector4f color;
 
-    public Sprite(Shape shape, Shader.LayoutElement[] layout){
+    public Sprite(Shape shape){
         this.shape = shape;
-        this.layout = layout;
-        shape.transform = gameObject.transform;
+        color = new Vector4f(1, 1,1,1);
+    }
+
+    public Sprite(){
+        this.shape = null;
+        color = new Vector4f(1, 1, 1, 1);
+    }
+
+    public float[] getVertexData(){
+
+        if (shape == null) return new float[0];
+
+        int elemSize = (textured)? 8 : 6;
+        this.vertexData = new float[shape.getVertexCount() * elemSize];
+
+        Vector2f[] positions = shape.getPositions();
+        Vector2f[] texCoords = shape.getTexCoords();
+
+        int index = 0;
+        for(int i = 0; i < shape.getVertexCount(); i++){
+            vertexData[index] = positions[i].x;
+            vertexData[index + 1] = positions[i].y;
+
+            vertexData[index + 2] = color.x;
+            vertexData[index + 3] = color.y;
+            vertexData[index + 4] = color.z;
+            vertexData[index + 5] = color.w;
+
+            if(textured){
+                vertexData[index + 2] = texCoords[i].x;
+                vertexData[index + 3] = texCoords[i].y;
+            }
+
+            index += elemSize;
+        }
+
+        return vertexData;
+    }
+
+    public int[] getIndexData(){
+
+        if(shape == null) return new int[0];
+
+        indexData = shape.getIndices();
+        return indexData;
     }
 
 
-    public void calc(){
-        if(shape == null) return;
-
-        indexData = shape.getIndices();
-
-        Vector2f[] positions = shape.getVertices();
-        Vector2f[] texCoords = shape.getTexCoords();
-        int layoutTotalAmount = 0;
-        for(Shader.LayoutElement elem : layout)
-            layoutTotalAmount += elem.length;
-
-        vertexData = new float[layoutTotalAmount * positions.length];
-        int offset = 0;
-        for(int i = 0; i < positions.length; i++)
-            for(Shader.LayoutElement elem : layout){
-                switch (elem.type) {
-                    case POSITION -> {
-                        vertexData[offset] = positions[i].x;
-                        vertexData[offset + 1] = positions[i].y;
-                    }
-                    case COLOR -> {
-                        vertexData[offset] = color.x;
-                        vertexData[offset + 1] = color.y;
-                        vertexData[offset + 2] = color.z;
-                        vertexData[offset + 3] = color.w;
-                    }
-                    case TEX_COORDS -> {
-                        vertexData[offset] = texCoords[i].x;
-                        vertexData[offset + 1] = texCoords[i].y;
-                    }
-                    default -> System.out.println("Undefined layout type");
-                }
-                offset += elem.length;
-            }
-
+    public void changeShape(Shape shape){
+        this.shape = shape;
+        shape.setTransform(gameObject.transform);
     }
 
 
     @Override
     public void update(float dt) {
-        calc();
+
     }
 }

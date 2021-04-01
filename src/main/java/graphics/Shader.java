@@ -4,6 +4,7 @@ package graphics;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 
 import java.io.File;
@@ -18,8 +19,6 @@ public class Shader {
     private String[] srcs;
     private String filepath;
     private boolean bound = false;
-    private boolean layoutSet = false;
-    private LayoutElement[] layout;
 
     public Shader(String filepath){
         this.filepath = filepath;
@@ -30,8 +29,8 @@ public class Shader {
             // vertex shader = 0; fragment shader = 1
             while(reader.hasNextLine()){
                 String line = reader.nextLine();
-                if(line.indexOf("#type") != -1)
-                    state = (line.indexOf("vertex") == -1)? 1 : 0;
+                if(line.contains("#type"))
+                    state = (!line.contains("vertex"))? 1 : 0;
 
                 else if (state != -1) srcs[state] += line + "\n";
             }
@@ -41,13 +40,6 @@ public class Shader {
             e.printStackTrace();
         }
     }
-
-    public void setLayout(LayoutElement[] layout) {
-        if(layoutSet) System.out.println("shader layout already set '" + filepath + "'");
-        else {this.layout = layout; layoutSet = true; }
-    }
-
-    public LayoutElement[] getLayout() { return layout; }
 
     public void Compile(){
         int[] shaders = compileShaders();
@@ -116,6 +108,13 @@ public class Shader {
         unbind();
     }
 
+    public void uploadVec4f(String name, Vector4f vec){
+        int location = glGetUniformLocation(id, name);
+        bind();
+        glUniform4f(location, vec.x, vec.y, vec.z, vec.w);
+        unbind();
+    }
+
     public void uploadTexture(String name, int slot){
         int location = glGetUniformLocation(id, name);
         bind();
@@ -130,18 +129,5 @@ public class Shader {
         mat.get(matBuffer);
         glUniformMatrix4fv(location, false, matBuffer);
         unbind();
-    }
-
-
-    public enum LayoutElementType { POSITION, COLOR, TEX_COORDS };
-
-    public static class LayoutElement{
-        public final int length;
-        public final LayoutElementType type;
-
-        public LayoutElement(LayoutElementType type, int length){
-            this.length = length;
-            this.type = type;
-        }
     }
 }

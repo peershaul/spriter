@@ -1,60 +1,42 @@
+graphics/IndexBuffer.java
+ graphics.IndexBuffer
 components/Transform.java
  components.Transform
 graphics/Buffer.java
  graphics.Buffer
-utils/Window.java
- utils.Window
 graphics/ArrayBuffer.java
  graphics.ArrayBuffer
-utils/AssetPool.java
- utils.AssetPool
-graphics/Texture.java
- graphics.Texture
-graphics/IndexBuffer.java
- graphics.IndexBuffer
-graphics/Shader.java
- graphics.Shader
-utils/Color.java
- utils.Color
-graphics/VertexBuffer.java
- graphics.VertexBuffer
-utils/KeyListener.java
- utils.KeyListener
-Scenes/Camera.java
- Scenes.Camera
-utils/MouseListener.java
- utils.MouseListener
-example_platformer/PlatformerScene.java
- example_platformer.PlatformerScene
-components/GameObject.java
- components.GameObject
-graphics/Renderer.java
- graphics.Renderer
-example_platformer/PlatformerPlayer.java
- example_platformer.PlatformerPlayer
-components/shapes/Shape.java
- components.shapes.Shape
-example_chess/ChessBoard.java
- example_chess.ChessBoard
-components/ObjectRenderer.java
- components.ObjectRenderer
 components/Component.java
  components.Component
-components/shapes/Circle.java
- components.shapes.Circle
-Test/TestGameObject.java
- Test.TestGameObject
-components/shapes/Rectangle.java
- components.shapes.Rectangle
+utils/Window.java
+ utils.Window
+graphics/Texture.java
+ graphics.Texture
+components/shape/Rectangle.java
+ components.shape.Rectangle
+Scenes/Camera.java
+ Scenes.Camera
+graphics/VertexBuffer.java
+ graphics.VertexBuffer
+components/shape/Shape.java
+ components.shape.Shape
+utils/KeyListener.java
+ utils.KeyListener
+utils/MouseListener.java
+ utils.MouseListener
+utils/Color.java
+ utils.Color
+Scenes/Scene.java
+ Scenes.Scene
+components/GameObject.java
+ components.GameObject
+graphics/Shader.java
+ graphics.Shader
+utils/AssetPool.java
+ utils.AssetPool
+components/Sprite.java
+ components.Sprite
 Test/SecondTestScene.java
  Test.SecondTestScene
 Main.java
  Main
-components/Sprite.java
- components.Sprite
-example_chess/ChessScene.java
- example_chess.ChessScene
-Test/TestScene.java
- Test.TestScene
-Scenes/Scene.java
- Scenes.Scene

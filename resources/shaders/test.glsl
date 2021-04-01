@@ -1,32 +1,25 @@
 #type vertex
 #version 330 core
 
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec2 texCoords;
+layout (location = 0) in vec2 position;
+layout (location = 1) in vec4 a_color;
 
-uniform mat4 projection;
-uniform mat4 viewMat;
+uniform vec2 screen;
 
-out vec4 fcolor;
-out vec2 fTexCoords;
-
+out vec4 f_color;
 
 void main(){
-    fcolor = vec4(1, 1, 1, 1);
-    fTexCoords = texCoords;
-    gl_Position = projection * viewMat * position;
+    f_color = a_color;
+    gl_Position = vec4(position.x / screen.x, position.y / screen.y, 0, 1);
 }
 
 #type fragment
 #version 330 core
 
-uniform sampler2D Texture;
-
-in vec4 fcolor;
-in vec2 fTexCoords;
+in vec4 f_color;
 
 out vec4 color;
 
 void main(){
-    color = texture(Texture, fTexCoords);
+    color = f_color;
 }

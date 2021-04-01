@@ -11,7 +11,7 @@ public class Main{
         Scene.addScene(new Scene[]{
                 new SecondTestScene()
         });
-        Scene.setCurrentScene(3);
+        Scene.setCurrentScene(0);
 
         win.loop();
     }
