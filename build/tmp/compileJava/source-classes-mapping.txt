@@ -26,23 +26,23 @@ utils/AssetPool.java
  utils.AssetPool
 graphics/ArrayBuffer.java
  graphics.ArrayBuffer
-utils/Window.java
- utils.Window
-Scenes/Scene.java
- Scenes.Scene
 Test/SecondTestScene.java
  Test.SecondTestScene
 components/GameObject.java
  components.GameObject
 graphics/Renderer.java
  graphics.Renderer
-components/Component.java
- components.Component
-components/Sprite.java
- components.Sprite
-Main.java
- Main
+Scenes/Scene.java
+ Scenes.Scene
 platformer_demo/PlatformerScene.java
  platformer_demo.PlatformerScene
+utils/Window.java
+ utils.Window
+components/Sprite.java
+ components.Sprite
 platformer_demo/PlatformerPlayer.java
  platformer_demo.PlatformerPlayer
+components/Component.java
+ components.Component
+Main.java
+ Main

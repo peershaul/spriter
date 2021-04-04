@@ -3,6 +3,7 @@ package Scenes;
 import components.GameObject;
 import components.Sprite;
 import graphics.Renderer;
+import graphics.Shader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -136,6 +137,15 @@ public abstract class Scene {
         }
 
         renderers.get(randrIndex).addSprite(spr);
+    }
+
+    public Shader getRendererShader(int randrIndex){
+        if(randrIndex >= renderers.size()) {
+            System.out.println("There is no renderer in this slot " + randrIndex);
+            return null;
+        }
+
+        return renderers.get(randrIndex).getShader();
     }
 
     public abstract void SceneUpdate(float dt);

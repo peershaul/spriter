@@ -5,8 +5,10 @@ import components.Sprite;
 import components.Transform;
 import components.shape.Rectangle;
 import graphics.Renderer;
+import graphics.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import org.w3c.dom.Text;
 import utils.AssetPool;
 import utils.KeyListener;
 import utils.Window;
@@ -34,10 +36,14 @@ public class PlatformerScene extends Scene {
 
         addRendererToScene(new Renderer(
                 AssetPool.getShader("resources/shaders/platformer/player.glsl"),
-                new int[]{2, 4}
+                new int[]{ 2, 2 }
         ));
 
-        renderers.get(1).getShader().uploadVec2f("screen", Window.getScreen());
+        Texture texture = AssetPool.getTexture("resources/textures/mario.png");
+
+        Texture.assign(0, texture);
+        getRendererShader(1).uploadVec2f("screen", Window.getScreen());
+        getRendererShader(1).uploadTexture("Texture", 0);
 
         player = new PlatformerPlayer();
 

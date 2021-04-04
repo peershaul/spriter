@@ -15,8 +15,8 @@ public class PlatformerPlayer extends GameObject {
         super("platformer player");
         screen = Window.getScreen();
         this.transform = new Transform(
-                new Vector2f(100, (0.1f * screen.y) + 50),
-                new Vector2f(100)
+                new Vector2f(75, (0.1f * screen.y) + 37.5f),
+                new Vector2f(75)
         );
 
         System.out.println(this.transform.position + "\n" + this.transform.scale);
@@ -27,6 +27,7 @@ public class PlatformerPlayer extends GameObject {
     @Override
     public void start(){
         Sprite spr = new Sprite();
+        spr.textured = true;
         addComponent(spr);
 
         spr.changeShape(new Rectangle());

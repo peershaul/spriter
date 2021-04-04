@@ -7,7 +7,7 @@ import utils.Window;
 
 public class Main{
     public static void main(String[] args){
-        Window win = Window.start(1280, 720, "Chess game");
+        Window win = Window.start(1280, 720, "Spriter game engine");
 
         Scene.addScene(new Scene[]{
                 new PlatformerScene(),
