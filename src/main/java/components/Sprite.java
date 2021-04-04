@@ -27,7 +27,7 @@ public class Sprite extends Component{
 
         if (shape == null) return new float[0];
 
-        int elemSize = (textured)? 8 : 6;
+        int elemSize = (textured)? 4 : 6;
         this.vertexData = new float[shape.getVertexCount() * elemSize];
 
         Vector2f[] positions = shape.getPositions();
@@ -38,14 +38,16 @@ public class Sprite extends Component{
             vertexData[index] = positions[i].x;
             vertexData[index + 1] = positions[i].y;
 
-            vertexData[index + 2] = color.x;
-            vertexData[index + 3] = color.y;
-            vertexData[index + 4] = color.z;
-            vertexData[index + 5] = color.w;
-
             if(textured){
                 vertexData[index + 2] = texCoords[i].x;
                 vertexData[index + 3] = texCoords[i].y;
+            }
+
+            else {
+                vertexData[index + 2] = color.x;
+                vertexData[index + 3] = color.y;
+                vertexData[index + 4] = color.z;
+                vertexData[index + 5] = color.w;
             }
 
             index += elemSize;

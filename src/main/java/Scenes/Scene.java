@@ -1,6 +1,7 @@
 package Scenes;
 
 import components.GameObject;
+import components.Sprite;
 import graphics.Renderer;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public abstract class Scene {
             return;
         }
 
-        if(currentScene != scenes.get(index)) {
+        if((!scenes.get(index).isActive) &&
+                (currentScene == null || !currentScene.equals(scenes.get(index)))){
             if(currentScene != null) {
                 currentScene.reset();
                 currentScene.isActive = false;
@@ -36,7 +38,7 @@ public abstract class Scene {
     }
 
     public static void setCurrentScene(Scene scene){
-        if(currentScene != scene){
+        if((!scene.isActive) && (currentScene == null || !currentScene.equals(scene))){
             if(currentScene != null) {
                 currentScene.reset();
                 currentScene.isActive = false;
@@ -78,7 +80,8 @@ public abstract class Scene {
     }
 
     public void reset() {
-
+        renderers = new ArrayList<>();
+        gameObjects = new ArrayList<>();
     }
 
     public void awake(){
@@ -111,8 +114,28 @@ public abstract class Scene {
     public void update(float dt){
         SceneUpdate(dt);
         for(GameObject go : gameObjects) go.update(dt);
-        for(Renderer rend : renderers) rend.draw();
+        for(int i = 0; i < renderers.size(); i++) {
+            if(!renderers.get(i).draw());// System.out.println("Problem on renderer number " + i);
+        }
 
+    }
+
+    public void addToRenderer(int randrIndex, GameObject go){
+        if(randrIndex >= renderers.size()){
+            System.out.println("There is no renderer in slot " + randrIndex);
+            return;
+        }
+
+        renderers.get(randrIndex).addSprite(go);
+    }
+
+    public void addToRenderer(int randrIndex, Sprite spr){
+        if(randrIndex >= renderers.size()){
+            System.out.println("There is no renderer in slot" + randrIndex);
+            return;
+        }
+
+        renderers.get(randrIndex).addSprite(spr);
     }
 
     public abstract void SceneUpdate(float dt);

@@ -16,7 +16,6 @@ public class Renderer {
     private ArrayBuffer arrayBuffer;
     private Shader shader;
     private boolean lines = false;
-    private boolean printed = false;
 
     public void addSprite(Sprite spr){ sprites.add(spr); }
 
@@ -85,21 +84,6 @@ public class Renderer {
         arrayBuffer.getVertexBuffer().putData(vertexData, true);
         arrayBuffer.getIndexBuffer().putData(indexData);
 
-        if(!printed) {
-
-            for (int i = 0; i < vertexData.length / 6; i++) {
-                for (int j = 0; j < 6; j++)
-                    System.out.print(vertexData[i * 6 + j] + "\t");
-                System.out.println();
-            }
-
-            for(int i = 0; i < indexData.length / 3; i++){
-                for(int j = 0; j < 3; j++)
-                    System.out.print(indexData[i * 3 + j] + "\t");
-                System.out.println();
-            }
-            printed = true;
-        }
     }
 
     public Shader getShader() { return shader; }
@@ -110,8 +94,10 @@ public class Renderer {
     }
 
 
-    public void draw(){
+    public boolean draw(){
         refresh();
+
+        if(sprites.size() == 0) return false;
 
         shader.bind();
         arrayBuffer.bind();
@@ -127,6 +113,32 @@ public class Renderer {
 
         arrayBuffer.unbind();
         shader.unbind();
+
+        return true;
+    }
+
+
+    public String getDump(boolean textured){
+        String res = "";
+        int vertexSize = textured? 4 : 6;
+
+        if(vertexData == null) return "empty vertex data";
+
+        for(int i = 0; i < vertexData.length / vertexSize; i++) {
+            for (int j = 0; j < vertexSize; j++)
+                res += vertexData[i * vertexSize + j] + " ";
+            res += "\n";
+        }
+
+        res += "\n\n\n";
+
+        for(int i = 0; i < indexData.length / 3; i++) {
+            for (int j = 0; j < 3; j++)
+                res += indexData[i * 3 + j] + " ";
+            res += "\n";
+        }
+
+        return res;
     }
 
 }

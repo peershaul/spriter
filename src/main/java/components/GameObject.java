@@ -56,7 +56,12 @@ public class GameObject {
     public String toString(){ return "GameObject: " + name + "\nPosition: " + transform.position + "\nScale: " + transform.scale;}
 
     public void update(float dt){
+        ObjectUpdate(dt);
         for (Component component : components) component.update(dt);
+    }
+
+    public void ObjectUpdate(float dt){
+
     }
 
     public void start(){
