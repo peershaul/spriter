@@ -9,6 +9,7 @@ public class Sprite extends Component{
 
     protected float[] vertexData;
     protected int[] indexData;
+    public int zIndex = 0;
     public Shape shape;
     public boolean textured = false;
     public Vector4f color;

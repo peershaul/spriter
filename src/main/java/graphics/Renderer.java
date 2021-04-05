@@ -42,6 +42,25 @@ public class Renderer {
 
     public void refresh(){
         if(sprites.size() == 0) return;
+
+        if(sprites.size() > 1)
+            for(int j = 0; j < sprites.size(); j++) {
+                int smallestIndex = Integer.MAX_VALUE;
+                int smallestSlot = -1;
+
+                for (int i = j; i < sprites.size(); i++) {
+                    Sprite spr = sprites.get(i);
+                    if (spr.zIndex < smallestIndex) {
+                        smallestIndex = spr.zIndex;
+                        smallestSlot = i;
+                    }
+                }
+
+                Sprite slot = sprites.get(j);
+                sprites.set(j, sprites.get(smallestSlot));
+                sprites.set(smallestSlot, slot);
+            }
+
         int vertexDataSize = 0;
         int indexDataSize = 0;
 

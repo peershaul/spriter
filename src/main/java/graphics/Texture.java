@@ -1,8 +1,6 @@
 package graphics;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL;
-import org.w3c.dom.Text;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -19,15 +17,15 @@ public class Texture {
 
     public static Map<Integer, Texture> assigned = new HashMap<>();
 
-    public static boolean assign(int slot, Texture tex){
+    public static void assign(int slot, Texture tex){
             if(assigned.containsValue(tex)){
                System.out.println("Texture is already assigned");
-               return false;
+               return;
             }
 
             if(assigned.containsKey(slot)){
                System.out.println("slot is already assigned");
-               return false;
+               return;
             }
 
             assigned.put(slot, tex);
@@ -35,7 +33,6 @@ public class Texture {
             // tex.unbind();
             tex.bind();
             glActiveTexture(GL_TEXTURE0 + slot);
-            return true;
     }
 
     public static void resign(Texture tex){

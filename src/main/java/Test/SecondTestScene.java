@@ -16,6 +16,8 @@ import utils.Window;
 
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.GL_MAX_TEXTURE_IMAGE_UNITS;
 
 public class SecondTestScene extends Scene {
 
@@ -47,6 +49,7 @@ public class SecondTestScene extends Scene {
                 ));
 
         Sprite spr = new Sprite(new Rectangle(go.transform));
+        spr.zIndex = 0;
 
         go.addComponent(spr);
 
@@ -63,9 +66,22 @@ public class SecondTestScene extends Scene {
 
         Sprite anotherSpr = new Sprite(new Rectangle(tester.transform));
 
+        anotherSpr.zIndex = 1;
+
         tester.addComponent(anotherSpr);
         renderers.get(0).addSprite(tester);
         addGameObjectToScene(tester);
+
+        Sprite testSprite = new Sprite(new Rectangle(new Transform(
+                new Vector2f(-200),
+                new Vector2f(300)
+        )));
+
+        testSprite.zIndex = 2;
+        testSprite.color = new Vector4f(0, 1, 0, 0.25f);
+
+        addToRenderer(0, testSprite);
+
     }
 
     @Override

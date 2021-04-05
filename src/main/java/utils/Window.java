@@ -69,7 +69,7 @@ public class Window {
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window won't be resizable
 
         // Create the window
         window = glfwCreateWindow(width, height, name, NULL, NULL);
@@ -109,6 +109,8 @@ public class Window {
         glfwShowWindow(window);
 
         GL.createCapabilities();
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         if(!clearMod) clearColor = new Vector4f(0, 0, 0, 1);
     }

@@ -13,7 +13,7 @@ public abstract class Scene {
     private static List<Scene> scenes = new ArrayList<>();
     private static Scene currentScene = null;
 
-    public static List<Scene> getScenes() { return scenes; }
+    public static List<Scene> getScenes()  { return scenes; }
     public static void addScene(Scene[] new_scenes){
         Collections.addAll(scenes, new_scenes);
     }
