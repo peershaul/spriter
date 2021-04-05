@@ -7,7 +7,7 @@ public abstract class Shape {
     public Vector2f[] positions, texCoords;
     protected int[] indices;
     protected Transform transform;
-    public int vertexCount;
+    public int vertexCount = 0;
 
     public Shape(Transform transform){
         this.transform = transform;

@@ -4,7 +4,9 @@ import Scenes.Scene;
 import components.GameObject;
 import components.Sprite;
 import components.Transform;
+import components.shape.Circle;
 import components.shape.Rectangle;
+import components.shape.Shape;
 import graphics.*;
 import org.joml.Random;
 import org.joml.Vector2f;
@@ -18,6 +20,7 @@ import utils.Window;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.GL_MAX_TEXTURE_IMAGE_UNITS;
+import static utils.Color.normalize;
 
 public class SecondTestScene extends Scene {
 
@@ -66,7 +69,7 @@ public class SecondTestScene extends Scene {
 
         Sprite anotherSpr = new Sprite(new Rectangle(tester.transform));
 
-        anotherSpr.zIndex = 1;
+        anotherSpr.zIndex = -1;
 
         tester.addComponent(anotherSpr);
         renderers.get(0).addSprite(tester);
@@ -82,6 +85,15 @@ public class SecondTestScene extends Scene {
 
         addToRenderer(0, testSprite);
 
+        Transform circTransform = new Transform(new Vector2f(0));
+        float radius = 500;
+        int resolution = 50;
+        Shape circ = new Circle(radius, resolution, circTransform);
+
+        Sprite circSpr = new Sprite(circ);
+        circSpr.color = normalize(new Vector4f(30, 50, 203, 0.4f));
+
+        addToRenderer(0, circSpr);
     }
 
     @Override
