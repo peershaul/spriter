@@ -8,9 +8,15 @@ uniform vec2 screen;
 
 out vec4 f_color;
 
+float calcCamCoords(bool axis){
+    float pos = axis? position.x : position.y;
+    float cam = axis? screen.x : screen.y;
+    return 2 * pos / cam;
+}
+
 void main(){
     f_color = a_color;
-    gl_Position = vec4(position.x / screen.x, position.y / screen.y, 0, 1);
+    gl_Position = vec4(calcCamCoords(true), calcCamCoords(false), 0, 1);
 }
 
 #type fragment

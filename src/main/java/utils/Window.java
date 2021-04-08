@@ -154,7 +154,7 @@ public class Window {
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             beginTime = endTime;
-            System.out.println("FPS = " + ( 1 / dt));
+            // System.out.println("FPS = " + ( 1 / dt));
         }
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);

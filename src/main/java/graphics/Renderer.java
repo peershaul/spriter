@@ -16,6 +16,8 @@ public class Renderer {
     private ArrayBuffer arrayBuffer;
     private Shader shader;
     private boolean lines = false;
+    private boolean ConstMode = false;
+    private int drawMode = 0;
 
     public void addSprite(Sprite spr){ sprites.add(spr); }
 
@@ -39,6 +41,21 @@ public class Renderer {
                 layout
         );
     }
+
+    public Renderer(Shader shader, int[] layout, boolean ConstMode){
+        this.shader = shader;
+        sprites = new ArrayList<>();
+
+        arrayBuffer = new ArrayBuffer(
+                new VertexBuffer(),
+                new IndexBuffer(),
+                layout
+        );
+
+        this.ConstMode = ConstMode;
+    }
+
+    public boolean getConstMode(){ return ConstMode; }
 
     public void refresh(){
         if(sprites.size() == 0) return;
@@ -113,6 +130,12 @@ public class Renderer {
     }
 
 
+    public void setDrawMode(int mode){
+        glPolygonMode(GL_FRONT_AND_BACK, mode);
+        drawMode = mode;
+    }
+
+
     public boolean draw(){
         refresh();
 
@@ -121,7 +144,9 @@ public class Renderer {
         shader.bind();
         arrayBuffer.bind();
 
-        glDrawElements((lines)? GL_LINES : GL_TRIANGLES,
+        assert drawMode == 0: "There is no drawMode defined in this renderer";
+
+        glDrawElements(ConstMode? drawMode : ((lines)? GL_LINES : GL_TRIANGLES),
                 arrayBuffer.getIndexBuffer().getAmount(), GL_UNSIGNED_INT, 0);
 
         int err = glGetError();
@@ -145,7 +170,7 @@ public class Renderer {
 
         for(int i = 0; i < vertexData.length / vertexSize; i++) {
             for (int j = 0; j < vertexSize; j++)
-                res += vertexData[i * vertexSize + j] + " ";
+                res += vertexData[i * vertexSize + j] + "\t";
             res += "\n";
         }
 
@@ -153,7 +178,7 @@ public class Renderer {
 
         for(int i = 0; i < indexData.length / 3; i++) {
             for (int j = 0; j < 3; j++)
-                res += indexData[i * 3 + j] + " ";
+                res += indexData[i * 3 + j] + "\t";
             res += "\n";
         }
 

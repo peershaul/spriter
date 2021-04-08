@@ -19,4 +19,8 @@ public class Transform {
         this.position = new Vector2f();
         this.scale = new Vector2f();
     }
+
+    public String toString(){
+        return "Position: " + position + "\nScale: " + scale;
+    }
 }

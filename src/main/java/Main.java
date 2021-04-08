@@ -3,6 +3,7 @@ import Test.SecondTestScene;
 import Scenes.Scene;
 
 import Test.TestScene;
+import demo_balls.BallScene;
 import platformer_demo.PlatformerScene;
 import utils.Window;
 
@@ -11,7 +12,7 @@ public class Main{
         Window win = Window.start(1280, 720, "Spriter game engine");
 
         Scene.addScene(new Scene[]{
-                new TestScene(),
+                new BallScene(),
                 new PlatformerScene(),
                 new SecondTestScene()
         });

@@ -34,6 +34,7 @@ public class SecondTestScene extends Scene {
     private GameObject tester, go;
     private Vector3f multi = new Vector3f(1);
     private float divider = 1, velocity = 200, time = 10;
+    private Transform circTransform;
 
     @Override
     public void init(){
@@ -85,9 +86,9 @@ public class SecondTestScene extends Scene {
 
         addToRenderer(0, testSprite);
 
-        Transform circTransform = new Transform(new Vector2f(0));
-        float radius = 500;
-        int resolution = 50;
+        circTransform = new Transform(new Vector2f(-500, 400));
+        float radius = 200;
+        int resolution = 40;
         Shape circ = new Circle(radius, resolution, circTransform);
 
         Sprite circSpr = new Sprite(circ);
@@ -131,6 +132,8 @@ public class SecondTestScene extends Scene {
             tester.transform.position.x -= velocity * dt;
 
         time += dt;
+
+        circTransform.position.x += 10 * dt;
 
         if(KeyListener.isKeyPressed(GLFW_KEY_L) && time >= 0.25f) {
             for (Renderer rend : renderers) rend.toggleWireframe();
