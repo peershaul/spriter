@@ -1,7 +1,11 @@
+components/frames/Frame.java
+ components.frames.Frame
 components/Transform.java
  components.Transform
 graphics/Buffer.java
  graphics.Buffer
+components/FrameManager.java
+ components.FrameManager
 graphics/Renderer.java
  graphics.Renderer
 components/shape/Circle.java
@@ -12,14 +16,16 @@ components/shape/Rectangle.java
  components.shape.Rectangle
 platformer_demo/PlatformerPlayer.java
  platformer_demo.PlatformerPlayer
-utils/Color.java
- utils.Color
 Test/TestScene.java
  Test.TestScene
+utils/Color.java
+ utils.Color
 utils/KeyListener.java
  utils.KeyListener
 platformer_demo/PlatformerScene.java
  platformer_demo.PlatformerScene
+components/DrawingElement.java
+ components.DrawingElement
 components/Sprite.java
  components.Sprite
 Scenes/Camera.java
@@ -34,6 +40,8 @@ graphics/IndexBuffer.java
  graphics.IndexBuffer
 components/GameObject.java
  components.GameObject
+utils/Window.java
+ utils.Window
 graphics/Texture.java
  graphics.Texture
 graphics/Shader.java
@@ -46,9 +54,9 @@ utils/AssetPool.java
  utils.AssetPool
 Test/SecondTestScene.java
  Test.SecondTestScene
-utils/Window.java
- utils.Window
 Main.java
  Main
 demo_balls/BallScene.java
  demo_balls.BallScene
+components/frames/RectFrame.java
+ components.frames.RectFrame

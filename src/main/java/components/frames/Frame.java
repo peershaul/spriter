@@ -1,19 +1,19 @@
-package components.shape;
+package components.frames;
 
 import components.Transform;
 import org.joml.Vector2f;
 
-public abstract class Shape {
-    protected Vector2f[] positions, texCoords;
+public abstract class Frame {
+    protected Vector2f[] positions;
     protected int[] indices;
     protected Transform transform;
     public int vertexCount = 0;
 
-    public Shape(Transform transform){
+    public Frame(Transform transform){
         this.transform = transform;
     }
 
-    public Shape(){
+    public Frame(){
 
     }
 
@@ -22,10 +22,7 @@ public abstract class Shape {
     }
 
     public abstract Vector2f[] getPositions();
-    public abstract Vector2f[] getTexCoords();
     public abstract int[] getIndices();
 
-    public int getVertexCount(){
-        return vertexCount;
-    }
+    public int getVertexCount() { return vertexCount; }
 }

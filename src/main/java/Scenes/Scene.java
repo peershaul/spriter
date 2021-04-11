@@ -1,5 +1,6 @@
 package Scenes;
 
+import components.DrawingElement;
 import components.GameObject;
 import components.Sprite;
 import graphics.Renderer;
@@ -130,7 +131,7 @@ public abstract class Scene {
         renderers.get(randrIndex).addSprite(go);
     }
 
-    public void addToRenderer(int randrIndex, Sprite spr){
+    public void addToRenderer(int randrIndex, DrawingElement spr){
         if(randrIndex >= renderers.size()){
             System.out.println("There is no renderer in slot" + randrIndex);
             return;

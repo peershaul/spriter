@@ -5,7 +5,7 @@ import components.shape.Shape;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-public class Sprite extends Component{
+public class Sprite extends Component implements DrawingElement{
 
     protected float[] vertexData;
     protected int[] indexData;
@@ -24,6 +24,8 @@ public class Sprite extends Component{
         color = new Vector4f(1, 1, 1, 1);
     }
 
+
+    @Override
     public float[] getVertexData(){
 
         if (shape == null) return new float[0];
@@ -57,6 +59,7 @@ public class Sprite extends Component{
         return vertexData;
     }
 
+    @Override
     public int[] getIndexData(){
 
         if(shape == null) return new int[0];

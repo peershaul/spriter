@@ -1,6 +1,8 @@
 package graphics;
 
+import components.FrameManager;
 import components.GameObject;
+import components.DrawingElement;
 import components.Sprite;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
 
-    private List<Sprite> sprites;
+    private List<DrawingElement> sprites;
     private float[] vertexData;
     private int[] indexData;
     private ArrayBuffer arrayBuffer;
@@ -19,12 +21,13 @@ public class Renderer {
     private boolean ConstMode = false;
     private int drawMode = 0;
 
-    public void addSprite(Sprite spr){ sprites.add(spr); }
+    public void addSprite(DrawingElement spr){ sprites.add(spr); }
 
     public void addSprite(GameObject go) {
-        Sprite spr = go.getComponent(Sprite.class);
+        DrawingElement spr = go.getComponent(Sprite.class);
+        if(spr == null) spr = go.getComponent(FrameManager.class);
         if(spr == null){
-            System.out.println("Sprite wasnt found on GameObject: " + go.getName());
+            System.out.println("DrawingElement wasnt found on GameObject: " + go.getName());
             return;
         }
 
@@ -66,14 +69,14 @@ public class Renderer {
                 int smallestSlot = -1;
 
                 for (int i = j; i < sprites.size(); i++) {
-                    Sprite spr = sprites.get(i);
+                    DrawingElement spr = sprites.get(i);
                     if (spr.zIndex < smallestIndex) {
                         smallestIndex = spr.zIndex;
                         smallestSlot = i;
                     }
                 }
 
-                Sprite slot = sprites.get(j);
+                DrawingElement slot = sprites.get(j);
                 sprites.set(j, sprites.get(smallestSlot));
                 sprites.set(smallestSlot, slot);
             }
@@ -81,7 +84,7 @@ public class Renderer {
         int vertexDataSize = 0;
         int indexDataSize = 0;
 
-        for(Sprite spr : sprites) {
+        for(DrawingElement spr : sprites) {
             vertexDataSize += spr.getVertexData().length;
             indexDataSize += spr.getIndexData().length;
         }
@@ -89,7 +92,7 @@ public class Renderer {
         vertexData = new float[vertexDataSize];
         int index = 0;
 
-        for(Sprite spr : sprites){
+        for(DrawingElement spr : sprites){
             if(spr == null) continue;
             float[] spriteData = spr.getVertexData();
             for(int i = 0; i < spriteData.length; i++)
@@ -102,7 +105,7 @@ public class Renderer {
         indexData = new int[indexDataSize];
         int Max = -1;
 
-        for(Sprite spr : sprites){
+        for(DrawingElement spr : sprites){
             if(spr == null) continue;
             int[] indices = spr.getIndexData();
             int max = 0;
