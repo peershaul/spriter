@@ -1,7 +1,7 @@
 package components;
 
 public interface DrawingElement {
-    int zIndex = 0;
+    int getZIndex();
     float[] getVertexData();
     int[] getIndexData();
 }

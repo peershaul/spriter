@@ -26,6 +26,11 @@ public class Sprite extends Component implements DrawingElement{
 
 
     @Override
+    public int getZIndex() {
+        return zIndex;
+    }
+
+    @Override
     public float[] getVertexData(){
 
         if (shape == null) return new float[0];

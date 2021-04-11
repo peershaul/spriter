@@ -65,4 +65,7 @@ public class FrameManager extends Component implements DrawingElement{
         this.frame = frame;
         frame.setTransform(gameObject.transform);
     }
+
+    @Override
+    public int getZIndex(){ return zIndex; }
 }

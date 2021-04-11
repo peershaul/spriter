@@ -70,8 +70,8 @@ public class Renderer {
 
                 for (int i = j; i < sprites.size(); i++) {
                     DrawingElement spr = sprites.get(i);
-                    if (spr.zIndex < smallestIndex) {
-                        smallestIndex = spr.zIndex;
+                    if (spr.getZIndex() < smallestIndex) {
+                        smallestIndex = spr.getZIndex();
                         smallestSlot = i;
                     }
                 }
