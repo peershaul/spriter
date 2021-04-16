@@ -21,7 +21,10 @@ public class Renderer {
     private boolean ConstMode = false;
     private int drawMode = 0;
 
-    public void addSprite(DrawingElement spr){ sprites.add(spr); }
+    public void addSprite(DrawingElement spr){
+        assert spr != null: "DrawingElement is empty!";
+        sprites.add(spr);
+    }
 
     public void addSprite(GameObject go) {
         DrawingElement spr = go.getComponent(Sprite.class);

@@ -16,8 +16,8 @@ components/shape/Rectangle.java
  components.shape.Rectangle
 graphics/Shader.java
  graphics.Shader
-Main.java
- Main
+Scenes/Scene.java
+ Scenes.Scene
 utils/Color.java
  utils.Color
 utils/KeyListener.java
@@ -34,29 +34,31 @@ utils/MouseListener.java
  utils.MouseListener
 graphics/ArrayBuffer.java
  graphics.ArrayBuffer
-utils/Window.java
- utils.Window
+components/Sprite.java
+ components.Sprite
 graphics/IndexBuffer.java
  graphics.IndexBuffer
 components/FrameManager.java
  components.FrameManager
-Test/SecondTestScene.java
- Test.SecondTestScene
+components/Component.java
+ components.Component
 components/GameObject.java
  components.GameObject
 graphics/Renderer.java
  graphics.Renderer
+Test/SecondTestScene.java
+ Test.SecondTestScene
+Main.java
+ Main
 demo_balls/BallScene.java
  demo_balls.BallScene
 platformer_demo/PlatformerScene.java
  platformer_demo.PlatformerScene
-components/Sprite.java
- components.Sprite
+utils/Window.java
+ utils.Window
 platformer_demo/PlatformerPlayer.java
  platformer_demo.PlatformerPlayer
 Test/TestScene.java
  Test.TestScene
-components/Component.java
- components.Component
-Scenes/Scene.java
- Scenes.Scene
+demo_balls/BallObject.java
+ demo_balls.BallObject

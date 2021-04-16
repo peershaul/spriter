@@ -24,6 +24,8 @@ public class Sprite extends Component implements DrawingElement{
         color = new Vector4f(1, 1, 1, 1);
     }
 
+    public void changeColor(Vector4f color){ this.color.set(color); }
+
 
     @Override
     public int getZIndex() {
