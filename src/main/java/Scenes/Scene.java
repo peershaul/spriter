@@ -117,8 +117,12 @@ public abstract class Scene {
         SceneUpdate(dt);
         for(GameObject go : gameObjects) go.update(dt);
         for(int i = 0; i < renderers.size(); i++) {
-            if(!renderers.get(i).draw());// System.out.println("Problem on renderer number " + i);
+            if(!renderers.get(i).draw()) System.out.println("Problem on renderer number " + i);
         }
+        drawUI();
+    }
+
+    public void drawUI(){
 
     }
 

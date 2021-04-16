@@ -90,7 +90,7 @@ public class BallObject extends GameObject {
     public static float[] gridSort(int factor){
         float cellSize = ((frameSize * 2) / factor);
         float[] cells = new float[factor];
-        for(int i = 0; i <= factor; i++)
+        for(int i = 0; i < factor; i++)
             cells[i] = i * cellSize - frameSize;
         return cells;
     }

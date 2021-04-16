@@ -1,9 +1,9 @@
 package Test;
 
 import Scenes.Scene;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11C.GL_LINES;
+import graphics.Line;
+import org.joml.Vector2f;
+import utils.Window;
 
 public class SecondTestScene extends Scene {
 
@@ -11,20 +11,22 @@ public class SecondTestScene extends Scene {
         super("second test scene");
     }
 
+    private Line l;
+
     @Override
     public void init(){
 
+        Vector2f screen = Window.getScreen();
+
+        l = new Line(
+                new Vector2f(0, 0),
+                new Vector2f(40, screen.y * 0.95f / 2 )
+        );
     }
 
     @Override
-    public void update(float dt){
-        glBegin(GL_LINES);
-        glVertex2f(0.5f, 0);
-        glVertex2f(-0.5f, 1);
-        glEnd();
-
-        glEnable(GL_LINE_SMOOTH);
-        glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    public void update(float dt) {
+        l.draw(Line.DrawScale.PIXELS);
     }
 
     @Override

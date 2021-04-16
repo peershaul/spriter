@@ -7,6 +7,7 @@ import components.Sprite;
 import components.Transform;
 import components.frames.RectFrame;
 import components.shape.Rectangle;
+import graphics.Line;
 import graphics.Renderer;
 import org.joml.Random;
 import org.joml.Vector2f;
@@ -29,6 +30,8 @@ public class BallScene extends Scene {
     private final Vector2f screen;
     public BallObject[] balls;
     private final Random rand;
+
+    private Line[] grid;
 
     @Override
     public void init(){
@@ -74,7 +77,7 @@ public class BallScene extends Scene {
 
         getRendererShader(1).uploadVec2f("screen", screen);
 
-        int amount = 100;
+        int amount = 20;
         balls = new BallObject[amount];
 
         float randMulti = 200;
@@ -102,13 +105,30 @@ public class BallScene extends Scene {
 
         BallObject.balls = balls;
 
-        for(GameObject go : gameObjects) System.out.println(go);
+        int factor = 4;
+        float[] limits = BallObject.gridSort(factor);
 
+        grid = new Line[factor * 2];
+        for(int i = 0; i < factor; i++)
+            grid[i] = new Line(
+                    new Vector2f(BallObject.frameSize, limits[i]),
+                    new Vector2f(-BallObject.frameSize, limits[i])
+            );
+
+        for(int i = factor; i < factor * 2; i++)
+            grid[i] = new Line(
+                    new Vector2f(limits[i - factor], BallObject.frameSize),
+                    new Vector2f(limits[i - factor], -BallObject.frameSize)
+            );
 
     }
 
+    @Override
+    public void drawUI(){
+        for(Line l : grid) l.draw(Line.DrawScale.PIXELS);
+    }
 
-    // private void drawGrid()
+    //private void drawGrid()
 
     @Override
     public void SceneUpdate(float dt) {

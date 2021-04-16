@@ -16,8 +16,8 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
     private int id;
-    private String[] srcs;
-    private String filepath;
+    private final String[] srcs;
+    private final String filepath;
     private boolean bound = false;
 
     public Shader(String filepath){
@@ -45,8 +45,7 @@ public class Shader {
         int[] shaders = compileShaders();
 
         id = glCreateProgram();
-        for(int i = 0; i < shaders.length; i++)
-            glAttachShader(id, shaders[i]);
+        for (int shader : shaders) glAttachShader(id, shader);
 
         glLinkProgram(id);
 
